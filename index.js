@@ -3,7 +3,7 @@ const chalk = require('chalk');
 const table = require('text-table');
 
 function report(results) {
-    if (!results.length) { return; }
+    if (!results.length) { console.log(reportSuccess()); return; }
 
     const grouped = _.groupBy(results, 'fullPath');
     const output = _.map(grouped, reportFile).join('\n');
@@ -31,6 +31,14 @@ function reportError(error) {
         error.message,
         chalk.dim(error.linter)
     ];
+}
+
+function reportSuccess() {
+  return [
+    '',
+    chalk.green("All rules passed. Your code simply rocks!"),
+    ''
+  ].join('\n');
 }
 
 module.exports = {
